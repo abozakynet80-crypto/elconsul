@@ -12,6 +12,16 @@
 </head>
 <body>
 
+  <noscript>
+    <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+                font-family:Tahoma,sans-serif;background:#0B1F3A;color:#fff;text-align:center;direction:rtl;">
+      <div>
+        <strong style="font-size:18px;">يحتاج XERIA إلى تفعيل JavaScript في المتصفح لكي يعمل.</strong>
+        <p style="opacity:.75;font-size:13.5px;">فعّل JavaScript ثم أعد تحميل الصفحة.</p>
+      </div>
+    </div>
+  </noscript>
+
   <!-- شاشة تسجيل الدخول -->
   <div id="loginScreen"></div>
 
@@ -26,5 +36,27 @@
   <script src="js/team.js"></script>
   <script src="js/reports.js"></script>
   <script src="js/app.js"></script>
+
+  <script>
+    /* شبكة أمان: إذا فشل تحميل أحد ملفات JS (مثلًا بسبب فك ضغط غير كامل
+       للمجلد، أو فتح index.html من داخل ملف مضغوط)، فلن يُنفَّذ app.js إطلاقًا
+       ولن تظهر أي واجهة — تعرض هذه الشيفرة المضمّنة رسالة توضيحية بدل صفحة بيضاء. */
+    setTimeout(function () {
+      if (window.__xeriaBooted) return;
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;' +
+        'font-family:Tahoma,sans-serif;background:#0B1F3A;direction:rtl;">' +
+        '<div style="max-width:440px;width:100%;background:#fff;border-radius:18px;padding:28px 26px;' +
+        'box-shadow:0 10px 30px rgba(11,31,58,.25);text-align:center;">' +
+        '<div style="font-weight:800;font-size:19px;color:#0B1F3A;margin-bottom:10px;">تعذّر تحميل ملفات XERIA</div>' +
+        '<p style="color:#3A4552;font-size:14px;line-height:1.8;margin:0 0 14px;">' +
+        'يبدو أن أحد ملفات JavaScript أو CSS لم يُحمَّل بشكل صحيح. تأكد من:</p>' +
+        '<ul style="text-align:start;color:#3A4552;font-size:13.5px;line-height:1.9;margin:0 0 14px;padding-inline-start:20px;">' +
+        '<li>فك ضغط المجلد بالكامل والاحتفاظ بهيكله كما هو (index.html + style.css + مجلد js)</li>' +
+        '<li>عدم نقل ملف index.html بمفرده خارج المجلد</li>' +
+        '<li>فتح index.html من داخل المجلد المستخرج مباشرة، وليس من داخل ملف مضغوط</li>' +
+        '</ul></div></div>';
+    }, 2500);
+  </script>
 </body>
 </html>
